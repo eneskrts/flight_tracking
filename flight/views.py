@@ -1,3 +1,18 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from rest_framework.generics import GenericAPIView
 
-# Create your views here.
+from .serializers import AirportSerializer, FlightSerializer
+from.models import Airport, Flight
+
+
+class AirportViewSet(viewsets.ModelViewSet):
+    queryset = Airport.objects.all()
+    serializer_class = AirportSerializer
+    lookup_field = 'code'
+
+
+class FlightViewSet(viewsets.ModelViewSet):
+    queryset = Flight.objects.all()
+    serializer_class = FlightSerializer
+
+
