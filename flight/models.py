@@ -5,6 +5,9 @@ class Airport(models.Model):
     code = models.CharField("Airport Code", unique=True, db_index=True, max_length=20)
     name = models.CharField("Airport Name", max_length=150)
 
+    def __str__(self):
+        return self.code
+
 
 class Flight(models.Model):
     flight_number = models.CharField("Flight Number", max_length=20)
