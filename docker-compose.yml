@@ -1,0 +1,29 @@
+version: '2'
+services:
+  flight_django:
+    build: .
+    container_name: flight_django
+    entrypoint: entrypoints/django.sh
+    restart: on-failure
+    environment:
+      SECRET_KEY: "$SECRET_KEY"
+
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./flight_tracking:/flight_tracking
+      - ./static:/static
+      - ./media:/media
+  nginx:
+    build: ./ngnix
+    ports:
+      - "80:80"
+    depends_on:
+      - flight_django
+    restart: on-failure
+    volumes:
+      - ./static:/static
+      - ./media:/media
+volumes:
+  static:
+  media:
